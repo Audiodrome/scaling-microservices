@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Audiodrome/timestamp-microservice#readme",
   "dependencies": {
-    "hapi": "^17.1.1"
+    "hapi": "^17.1.1",
+    "scooter": "^5.0.0"
   }
 }

@@ -1,6 +1,7 @@
 'use strict';
 
 const Hapi = require('hapi');
+const Scooter = require('scooter');
 
 const server = Hapi.server({
   host: 'localhost',
@@ -21,8 +22,23 @@ server.route({
   }
 });
 
+server.route({
+  method: 'GET',
+  path: '/api/whoami',
+  handler: function (request, h) {
+    const whoami = {
+      'ipaddress': request.info.remoteAddress,
+      'language': request.headers['accept-language'].split(',')[0],
+      'software': request.headers['user-agent'],
+    }
+    console.log(request.plugins.scooter.toJSON());
+    return whoami;
+  }
+})
+
 async function start() {
   try {
+    await server.register(Scooter);
     await server.start();
   } catch (err) {
     console.log(err);
