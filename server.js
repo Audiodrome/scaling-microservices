@@ -34,7 +34,7 @@ server.route({
     console.log(request.plugins.scooter.toJSON());
     return whoami;
   }
-})
+});
 
 async function start() {
   try {
