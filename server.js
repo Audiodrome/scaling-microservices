@@ -36,6 +36,14 @@ server.route({
   }
 });
 
+server.route({
+  method: 'GET',
+  path: '/api/url-shortener/{url}',
+  handler: function (request, h) {
+    return 0;
+  }
+});
+
 async function start() {
   try {
     await server.register(Scooter);
