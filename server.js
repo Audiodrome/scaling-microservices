@@ -1,7 +1,7 @@
 'use strict';
 
 const Hapi = require('hapi');
-const Scooter = require('scooter');
+// const Scooter = require('scooter');
 
 const server = Hapi.server({
   host: 'localhost',
@@ -44,15 +44,34 @@ server.route({
   }
 });
 
-async function start() {
-  try {
-    await server.register(Scooter);
-    await server.start();
-  } catch (err) {
-    console.log(err);
-    process.exit(1);
-  }
-  console.log('Server running at:', server.info.uri);
-};
+const init = async () => {
+  await server.register({
+    plugin: require('scooter'),
+    options: {
+      prettyPrint: false,
+      logEvents: ['response']
+    }
+  });
 
-start();
+  await server.start();
+  console.log(`Server running at: ${server.info.uri}`);
+}
+
+process.on('unhandledRejection', (err) => {
+  console.log(err);
+  process.exit(1);
+});
+
+init();
+// async function start() {
+//   try {
+//     await server.register(Scooter);
+//     await server.start();
+//   } catch (err) {
+//     console.log(err);
+//     process.exit(1);
+//   }
+//   console.log('Server running at:', server.info.uri);
+// };
+
+// start();
