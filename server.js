@@ -4,9 +4,17 @@ const Hapi = require('hapi');
 // const Scooter = require('scooter');
 
 const server = Hapi.server({
-  host: 'localhost',
+  host: '0.0.0.0',
   port: 8000
 });
+
+server.route({
+  method: 'GET',
+  path: '/',
+  handler: function (request, h) {
+    return 'Hello World!';
+  }
+})
 
 server.route({
   method: 'GET',
